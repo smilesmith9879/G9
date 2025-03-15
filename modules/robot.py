@@ -23,6 +23,9 @@ class RobotController:
     def __init__(self):
         """Initialize the robot controller."""
         try:
+            # Lock for thread safety - initialize this first to avoid any errors
+            self.lock = threading.Lock()
+            
             # Initialize the LOBOROBOT controller
             self.robot = LOBOROBOT()
             logger.info("Robot controller initialized")
@@ -30,9 +33,6 @@ class RobotController:
             # Initialize servo positions
             self.pan_angle = 80  # Initial horizontal servo angle (PWM9)
             self.tilt_angle = 40  # Initial vertical servo angle (PWM10)
-            
-            # Lock for thread safety
-            self.lock = threading.Lock()
             
             # Set initial servo positions
             self.center_camera()
@@ -45,6 +45,12 @@ class RobotController:
             logger.error(f"Failed to initialize robot controller: {str(e)}")
             raise
     
+    def _ensure_lock_exists(self):
+        """Ensure the lock attribute exists."""
+        if not hasattr(self, 'lock'):
+            self.lock = threading.Lock()
+            logger.warning("Lock created on-demand")
+    
     def set_differential_drive(self, x, y, max_speed=60, turning_factor=0.7):
         """
         Set differential drive based on joystick x, y values.
@@ -55,6 +61,7 @@ class RobotController:
             max_speed (int): Maximum motor speed (0-100)
             turning_factor (float): Speed reduction factor when turning
         """
+        self._ensure_lock_exists()
         with self.lock:
             # Stop if no input
             if x == 0 and y == 0:
@@ -127,6 +134,7 @@ class RobotController:
     
     def stop_all_motors(self):
         """Stop all motors."""
+        self._ensure_lock_exists()
         with self.lock:
             for motor in range(4):
                 self.robot.MotorStop(motor)
@@ -143,6 +151,7 @@ class RobotController:
             pan (float): Pan control value (-1 to 1)
             tilt (float): Tilt control value (-1 to 1)
         """
+        self._ensure_lock_exists()
         with self.lock:
             # Calculate new angles based on joystick input
             # Pan (horizontal) servo - PWM9
@@ -179,6 +188,7 @@ class RobotController:
     
     def center_camera(self):
         """Center the camera gimbal to default position."""
+        self._ensure_lock_exists()
         with self.lock:
             # Set default positions
             self.pan_angle = 80
@@ -197,6 +207,7 @@ class RobotController:
         Returns:
             dict: Dictionary containing motor speeds and directions
         """
+        self._ensure_lock_exists()
         with self.lock:
             return {
                 'speeds': self.motor_speeds,
@@ -210,6 +221,7 @@ class RobotController:
         Returns:
             dict: Dictionary containing servo angles
         """
+        self._ensure_lock_exists()
         with self.lock:
             return {
                 'pan': self.pan_angle,
