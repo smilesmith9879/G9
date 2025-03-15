@@ -31,15 +31,15 @@ class RobotController:
             self.pan_angle = 80  # Initial horizontal servo angle (PWM9)
             self.tilt_angle = 40  # Initial vertical servo angle (PWM10)
             
+            # Lock for thread safety
+            self.lock = threading.Lock()
+            
             # Set initial servo positions
             self.center_camera()
             
             # Motor state
             self.motor_speeds = [0, 0, 0, 0]  # Speed of each motor
             self.motor_directions = ['forward', 'forward', 'forward', 'forward']  # Direction of each motor
-            
-            # Lock for thread safety
-            self.lock = threading.Lock()
             
         except Exception as e:
             logger.error(f"Failed to initialize robot controller: {str(e)}")
