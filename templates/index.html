@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Smart Car - Control Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/lib/socket.io.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/nipplejs.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/three.min.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Smart Car Control Panel</h1>
+            <div class="status-indicator">
+                <span id="connection-status" class="status-dot disconnected"></span>
+                <span id="status-text">Disconnected</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="video-container">
+                <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Camera Feed">
+                <div id="map-overlay" class="map-overlay">
+                    <canvas id="map-canvas" width="320" height="320"></canvas>
+                </div>
+            </div>
+
+            <div class="controls-container">
+                <div class="control-panel">
+                    <h2>Motion Control</h2>
+                    <div id="motion-joystick" class="joystick-zone"></div>
+                    <div class="control-info">
+                        <p>Use joystick to control robot movement</p>
+                        <div id="motion-data" class="data-display">X: 0, Y: 0</div>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <h2>Camera Control</h2>
+                    <div id="camera-joystick" class="joystick-zone"></div>
+                    <div class="control-info">
+                        <p>Use joystick to control camera pan/tilt</p>
+                        <div id="camera-data" class="data-display">Pan: 0°, Tilt: 0°</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-container">
+                <div class="data-panel">
+                    <h2>Sensor Data</h2>
+                    <div class="sensor-data">
+                        <div class="data-group">
+                            <h3>IMU</h3>
+                            <div id="accelerometer-data">
+                                <p>Accel X: <span>0.00</span> g</p>
+                                <p>Accel Y: <span>0.00</span> g</p>
+                                <p>Accel Z: <span>0.00</span> g</p>
+                            </div>
+                            <div id="gyroscope-data">
+                                <p>Gyro X: <span>0.00</span> °/s</p>
+                                <p>Gyro Y: <span>0.00</span> °/s</p>
+                                <p>Gyro Z: <span>0.00</span> °/s</p>
+                            </div>
+                            <div id="orientation-data">
+                                <p>Roll: <span>0.00</span>°</p>
+                                <p>Pitch: <span>0.00</span>°</p>
+                                <p>Yaw: <span>0.00</span>°</p>
+                            </div>
+                        </div>
+                        <div class="data-group">
+                            <h3>Position</h3>
+                            <div id="position-data">
+                                <p>X: <span>0.00</span> m</p>
+                                <p>Y: <span>0.00</span> m</p>
+                                <p>Z: <span>0.00</span> m</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-panel">
+                    <h2>System Status</h2>
+                    <div class="system-status">
+                        <p>Camera: <span id="camera-status">Inactive</span></p>
+                        <p>IMU: <span id="imu-status">Not Calibrated</span></p>
+                        <p>SLAM: <span id="slam-status">Inactive</span></p>
+                        <p>CPU: <span id="cpu-usage">0%</span></p>
+                        <p>Memory: <span id="memory-usage">0%</span></p>
+                        <p>Battery: <span id="battery-level">100%</span></p>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="toggle-slam" class="control-button">Enable SLAM</button>
+                        <button id="toggle-map" class="control-button">Show Map</button>
+                        <button id="center-camera" class="control-button">Center Camera</button>
+                        <button id="emergency-stop" class="control-button emergency">EMERGENCY STOP</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>AI Smart Four-Wheel Drive Car &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

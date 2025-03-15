@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Smart Car - Mobile Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
+    <script src="{{ url_for('static', filename='js/lib/socket.io.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/nipplejs.min.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Smart Car</h1>
+            <div class="status-indicator">
+                <span id="connection-status" class="status-dot disconnected"></span>
+                <span id="status-text">Disconnected</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="video-container">
+                <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Camera Feed">
+                <div id="map-overlay" class="map-overlay hidden">
+                    <canvas id="map-canvas" width="320" height="320"></canvas>
+                </div>
+            </div>
+
+            <div class="controls-container">
+                <div id="left-joystick" class="joystick-zone left"></div>
+                <div id="right-joystick" class="joystick-zone right"></div>
+            </div>
+
+            <div class="control-buttons">
+                <button id="toggle-map" class="control-button">Map</button>
+                <button id="toggle-slam" class="control-button">SLAM</button>
+                <button id="center-camera" class="control-button">Center</button>
+                <button id="emergency-stop" class="control-button emergency">STOP</button>
+            </div>
+
+            <div class="data-display">
+                <div id="sensor-data" class="data-panel">
+                    <div class="data-row">
+                        <span>Roll: <span id="roll-value">0.0°</span></span>
+                        <span>Pitch: <span id="pitch-value">0.0°</span></span>
+                    </div>
+                    <div class="data-row">
+                        <span>X: <span id="pos-x-value">0.0</span></span>
+                        <span>Y: <span id="pos-y-value">0.0</span></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="orientation-warning" class="orientation-warning hidden">
+            <p>Please rotate your device to landscape orientation for the best experience.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/mobile.js') }}"></script>
+</body>
+</html> 

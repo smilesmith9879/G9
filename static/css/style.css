@@ -1,0 +1,251 @@
+/* Main CSS for AI Smart Car Control Panel */
+
+/* Base styles */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --text-color: #333;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f5f7fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+h1 {
+    color: var(--dark-color);
+    font-size: 24px;
+}
+
+h2 {
+    color: var(--dark-color);
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: var(--dark-color);
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.connected {
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 5px var(--secondary-color);
+}
+
+.disconnected {
+    background-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Main content */
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Video container */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background-color: #000;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+#video-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.map-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 320px;
+    height: 320px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: none;
+}
+
+.map-overlay.visible {
+    display: block;
+}
+
+#map-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* Controls container */
+.controls-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.control-panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.joystick-zone {
+    width: 100%;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: var(--border-radius);
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.control-info {
+    text-align: center;
+}
+
+.data-display {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-radius: var(--border-radius);
+    font-family: monospace;
+    font-size: 14px;
+}
+
+/* Data container */
+.data-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.data-panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.sensor-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.data-group p {
+    margin-bottom: 5px;
+    font-family: monospace;
+}
+
+.system-status p {
+    margin-bottom: 8px;
+}
+
+.control-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.control-button {
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.control-button:hover {
+    background-color: #2980b9;
+}
+
+.control-button.emergency {
+    background-color: var(--accent-color);
+    grid-column: span 2;
+}
+
+.control-button.emergency:hover {
+    background-color: #c0392b;
+}
+
+/* Footer */
+footer {
+    margin-top: 30px;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .controls-container,
+    .data-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .sensor-data {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-container {
+        height: 360px;
+    }
+    
+    .map-overlay {
+        width: 200px;
+        height: 200px;
+    }
+} 
