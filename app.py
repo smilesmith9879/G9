@@ -205,7 +205,7 @@ def background_tasks():
                 slam_data = slam.get_data() if system_status['slam_active'] else None
                 
                 # Update system status
-                system_status['imu_calibrated'] = imu.is_calibrated()
+                system_status['imu_calibrated'] = imu.is_calibrated
                 system_status['camera_active'] = camera.is_active()
                 
                 # Send data to client
