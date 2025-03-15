@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 # Initialize Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ai_smart_car_secret_key'
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 
 # Socket.IO settings
 socketio = SocketIO(
